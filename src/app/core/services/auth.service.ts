@@ -17,7 +17,7 @@ export class AuthService {
   tokenKey: string = "PriceTrackr_Token";
   apiUrl: string = environment.apiUrl;
 
-  login(vm: Login): Observable<AuthResponse>{
+  login(vm: Login): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}account/login`, vm)
       .pipe(
         map((res) => {
@@ -29,58 +29,51 @@ export class AuthService {
       )
   }
 
-  register(vm: Register): Observable<AuthResponse>{
+  register(vm: Register): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}account/register`, vm)
-    .pipe(
-      map((res) => {
-        if (res.result){
-          console.log('register email sent');
-        }
-        return res;
-      })
-    )
+      .pipe(
+        map((res) => {
+          if (res.result) {
+            console.log('register email sent');
+          }
+          return res;
+        })
+      )
   }
 
-  forgotPassword(vm: ForgotPassword): Observable<AuthResponse>{
+  forgotPassword(vm: ForgotPassword): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}account/forgot-password`, vm)
-    .pipe(
-      map((res) => {
-        if (res.result){
-          console.log('Forgot password email sent');
-        }
-        return res;
-      })
-    )
+      .pipe(
+        map((res) => {
+          if (res.result) {
+            console.log('Forgot password email sent');
+          }
+          return res;
+        })
+      )
   }
 
-  resetPassword(vm: ResetPassword): Observable<AuthResponse>{
-    return this.http.post<AuthResponse>(`${this.apiUrl}account/reset-password`, vm)
-    .pipe(
-      map((res) => {
-        if (res.result){
-          console.log('Password reset successfully');
-        }
-        return res
-      })
-    )
+  resetPassword(vm: ResetPassword, headers: HttpHeaders): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}account/reset-password`, vm, { headers })
+      .pipe(
+        map((res) => {
+          if (res.result) {
+            console.log('Password reset successfully');
+          }
+          return res
+        })
+      )
   }
 
-  confirmEmail(headers: HttpHeaders): Observable<AuthResponse>{
-    return this.http.get<AuthResponse>(`${this.apiUrl}account/confirm-email`, {headers});
+  confirmEmail(headers: HttpHeaders): Observable<AuthResponse> {
+    return this.http.get<AuthResponse>(`${this.apiUrl}account/confirm-email`, { headers });
   }
 
-  logout(): void{
+  logout(): void {
     localStorage.removeItem(this.tokenKey);
   }
 
   private retrieveToken(): string | null {
     return localStorage.getItem(this.tokenKey) || null;
   }
-
-  // private isTokenValid(token: string): boolean{
-  //   if (token == null ) return false;
-
-  //   // const decodedToken = jwtDecode(token);
-
-  // }
 }
