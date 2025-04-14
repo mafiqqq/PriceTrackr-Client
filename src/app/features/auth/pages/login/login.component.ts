@@ -10,6 +10,8 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { AuthService } from '../../../../core/services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { Login } from '../../../../core/models/login';
+import { DividerModule } from 'primeng/divider';
+
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ import { Login } from '../../../../core/models/login';
     InputGroupAddonModule,
     PasswordModule,
     FloatLabelModule,
-    RouterModule
+    RouterModule,
+    DividerModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
