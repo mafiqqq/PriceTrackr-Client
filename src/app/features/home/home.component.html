@@ -1,4 +1,276 @@
-<p>home works!</p>
+<!-- Navbar -->
+<nav class="sticky top-0 z-50 bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <!-- Logo and brand -->
+            <div class="flex items-center">
+                <a routerLink="/" class="flex-shrink-0 flex items-center">
+                    <div class="h-8 w-8 rounded-full bg-blue-600 mr-3"></div>
+                    <span class="text-xl font-bold text-gray-900">Brand Name</span>
+                </a>
+            </div>
 
+            <!-- Desktop navigation -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a *ngFor="let item of navItems" [routerLink]="item.link"
+                    class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                    [class.text-blue-600]="item.active">
+                    {{ item.label }}
+                </a>
+                <button pButton pRipple label="Get Started" routerLink="/auth/login"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium">
+                </button>
+            </div>
 
-<router-outlet></router-outlet>
+            <!-- Mobile menu button -->
+            <div class="flex items-center md:hidden">
+                <button type="button" (click)="toggleMobileMenu()"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100">
+                    <svg *ngIf="!mobileMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <svg *ngIf="mobileMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile navigation menu -->
+    <div *ngIf="mobileMenuOpen" class="md:hidden bg-white shadow-lg">
+        <div class="pt-2 pb-3 space-y-1 px-4">
+            <a *ngFor="let item of navItems" [routerLink]="item.link"
+                class="block px-3 py-2 rounded-md text-base font-medium" [class.text-blue-600]="item.active"
+                [class.text-gray-600]="!item.active" [class.bg-blue-50]="item.active"
+                [class.hover:bg-gray-100]="!item.active">
+                {{ item.label }}
+            </a>
+            <button pButton pRipple label="Get Started" routerLink="/auth/login"
+                class="w-full mt-3 bg-blue-600 hover:bg-blue-700 text-white font-medium">
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight">Empower Your Workflow with Our Platform</h1>
+                <p class="text-xl md:text-2xl text-blue-100">Streamline your projects, enhance collaboration, and unlock
+                    new possibilities.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <button pButton pRipple label="Get Started" routerLink="/auth/register"
+                        class="p-3 font-medium bg-white text-blue-600 hover:bg-blue-50"></button>
+                    <button pButton pRipple label="Learn More" class="p-3 font-medium p-button-outlined"></button>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div
+                    class="w-full max-w-lg h-64 lg:h-96 bg-white/10 rounded-xl shadow-lg backdrop-blur-sm flex items-center justify-center">
+                    <div class="text-center p-6">
+                        <div class="w-20 h-20 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <p class="text-xl font-medium">Dashboard Preview</p>
+                        <p class="text-blue-100 mt-2">Interactive analytics and project management</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wave divider -->
+    <div class="w-full">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" fill="#ffffff" preserveAspectRatio="none"
+            class="h-12 w-full">
+            <path
+                d="M0,32L60,37.3C120,43,240,53,360,58.7C480,64,600,64,720,58.7C840,53,960,43,1080,48C1200,53,1320,75,1380,85.3L1440,96L1440,100L1380,100C1320,100,1200,100,1080,100C960,100,840,100,720,100C600,100,480,100,360,100C240,100,120,100,60,100L0,100Z">
+            </path>
+        </svg>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-gray-900">Powerful Features</h2>
+            <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">Everything you need to manage your projects
+                effectively and boost productivity.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div *ngFor="let feature of features"
+                class="bg-gray-50 rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" [innerHTML]="feature.icon"></svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ feature.title }}</h3>
+                <p class="text-gray-600">{{ feature.description }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="aspect-video bg-gray-200 rounded-xl overflow-hidden shadow-md">
+                    <!-- Placeholder for about image/video -->
+                    <div
+                        class="w-full h-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                        <div class="text-center p-6">
+                            <div
+                                class="w-16 h-16 mx-auto bg-blue-600 rounded-full flex items-center justify-center mb-4 text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                            </div>
+                            <p class="text-lg font-medium text-blue-700">About Our Company</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h2 class="text-3xl font-bold text-gray-900">About Us</h2>
+                <p class="text-lg text-gray-600">Founded in 2023, our company has been at the forefront of innovation in
+                    workflow management and collaboration tools.</p>
+                <p class="text-lg text-gray-600">Our mission is to empower teams of all sizes with intuitive, powerful
+                    solutions that simplify complex tasks and enhance productivity.</p>
+
+                <div class="grid grid-cols-2 gap-4 mt-8">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-3xl font-bold text-blue-600">5K+</div>
+                        <div class="text-gray-600">Happy Customers</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-3xl font-bold text-blue-600">99.9%</div>
+                        <div class="text-gray-600">Uptime</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-3xl font-bold text-blue-600">24/7</div>
+                        <div class="text-gray-600">Customer Support</div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <div class="text-3xl font-bold text-blue-600">200+</div>
+                        <div class="text-gray-600">Features</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900">What Our Customers Say</h2>
+            <p class="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">Thousands of organizations around the world rely on
+                our platform.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div *ngFor="let testimonial of testimonials" class="bg-gray-50 rounded-xl p-6 shadow-sm">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gray-300 mr-4"></div>
+                    <div>
+                        <h4 class="font-medium text-gray-900">{{ testimonial.name }}</h4>
+                        <p class="text-gray-600 text-sm">{{ testimonial.role }}</p>
+                    </div>
+                </div>
+                <p class="text-gray-600 italic">"{{ testimonial.quote }}"</p>
+                <div class="flex text-yellow-400 mt-4">
+                    <svg *ngFor="let star of [1,2,3,4,5]" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                        viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold">Ready to Transform Your Workflow?</h2>
+        <p class="mt-4 text-xl text-blue-100 max-w-3xl mx-auto">Join thousands of satisfied customers and experience the
+            difference today.</p>
+        <div class="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <button pButton pRipple label="Get Started for Free" routerLink="/auth/register"
+                class="p-3 font-medium bg-white text-blue-600 hover:bg-blue-50"></button>
+            <button pButton pRipple label="Contact Sales" class="p-3 font-medium p-button-outlined"></button>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-white font-medium mb-4">Product</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white">Features</a></li>
+                    <li><a href="#" class="hover:text-white">Pricing</a></li>
+                    <li><a href="#" class="hover:text-white">Security</a></li>
+                    <li><a href="#" class="hover:text-white">Roadmap</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-medium mb-4">Company</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white">About</a></li>
+                    <li><a href="#" class="hover:text-white">Careers</a></li>
+                    <li><a href="#" class="hover:text-white">Blog</a></li>
+                    <li><a href="#" class="hover:text-white">Press</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-medium mb-4">Resources</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white">Documentation</a></li>
+                    <li><a href="#" class="hover:text-white">Guides</a></li>
+                    <li><a href="#" class="hover:text-white">API</a></li>
+                    <li><a href="#" class="hover:text-white">Community</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white font-medium mb-4">Support</h3>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white">Help Center</a></li>
+                    <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-white">Status</a></li>
+                    <li><a href="#" class="hover:text-white">Training</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center mb-4 md:mb-0">
+                <div class="h-8 w-8 rounded-full bg-blue-600 mr-3"></div>
+                <span class="text-xl font-bold text-white">Brand Name</span>
+            </div>
+            <div class="text-sm">
+                &copy; 2025 Brand Name. All rights reserved.
+            </div>
+        </div>
+    </div>
+</footer>

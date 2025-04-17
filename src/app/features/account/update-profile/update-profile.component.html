@@ -1,0 +1,342 @@
+<!-- profile.component.html -->
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col items-start">
+            <!-- Page Header -->
+            <div class="w-full mb-8 flex items-center justify-between">
+                <h1 class="text-3xl font-bold text-slate-800">Account Settings</h1>
+                <p-button label="Save All Changes" icon="pi pi-save" styleClass="p-button-success"></p-button>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="w-full grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Navigation Menu -->
+                <div class="col-span-1">
+                    <p-card styleClass="sticky top-4">
+                        <p-menu [model]="[
+                {label: 'Profile Information', icon: 'pi pi-user'},
+                {label: 'Password & Security', icon: 'pi pi-lock'},
+                {label: 'Notifications', icon: 'pi pi-bell'},
+                {label: 'Account Management', icon: 'pi pi-cog'}
+              ]"></p-menu>
+                    </p-card>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="col-span-1 md:col-span-3">
+                    <!-- <p-toast></p-toast> -->
+                    <!-- <p-confirmDialog></p-confirmDialog> -->
+
+                    <!-- Profile Information Section -->
+                    <p-panel header="Profile Information" [toggleable]="true" styleClass="mb-6">
+                        <div class="flex flex-col md:flex-row">
+                            <!-- Profile Picture -->
+                            <div class="w-full md:w-1/4 flex flex-col items-center mb-6 md:mb-0">
+                                <div class="relative mb-4">
+                                    <img [src]="previewImageSrc"
+                                        class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+                                        alt="Profile Picture" />
+                                    <button pButton type="button" icon="pi pi-camera"
+                                        class="p-button-rounded p-button-primary absolute bottom-0 right-0"></button>
+                                </div>
+                                <p-fileUpload mode="basic" chooseLabel="Change Picture" name="profile-pic"
+                                    accept="image/*" [auto]="true" (onUpload)="onFileUpload($event)"
+                                    styleClass="p-button-outlined"></p-fileUpload>
+                            </div>
+
+                            <!-- Profile Form -->
+                            <div class="w-full md:w-3/4">
+                                <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <!-- Personal Information -->
+                                        <div class="p-field">
+                                            <label for="firstName"
+                                                class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                            <input pInputText id="firstName" formControlName="firstName"
+                                                class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="lastName"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                            <input pInputText id="lastName" formControlName="lastName" class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="email"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                            <input pInputText id="email" formControlName="email" class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="phone"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Phone
+                                                Number</label>
+                                            <p-inputMask id="phone" formControlName="phone" mask="(999) 999-9999"
+                                                class="w-full"></p-inputMask>
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="birthday"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Birthday</label>
+                                            <p-calendar id="birthday" formControlName="birthday" [showIcon]="true"
+                                                dateFormat="mm/dd/yy" class="w-full"></p-calendar>
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="language"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Language</label>
+                                            <p-dropdown id="language" formControlName="language"
+                                                [options]="['English', 'Spanish', 'French', 'German', 'Japanese']"
+                                                class="w-full"></p-dropdown>
+                                        </div>
+
+                                        <!-- Address Information -->
+                                        <div class="p-field md:col-span-2">
+                                            <label for="address"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                            <input pInputText id="address" formControlName="address" class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="city"
+                                                class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                            <input pInputText id="city" formControlName="city" class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="state"
+                                                class="block text-sm font-medium text-gray-700 mb-1">State/Province</label>
+                                            <input pInputText id="state" formControlName="state" class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="country"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                                            <p-dropdown id="country" formControlName="country" [options]="countries"
+                                                optionLabel="name" class="w-full"></p-dropdown>
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="postalCode"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
+                                            <input pInputText id="postalCode" formControlName="postalCode"
+                                                class="w-full" />
+                                        </div>
+
+                                        <!-- Professional Information -->
+                                        <div class="p-field">
+                                            <label for="company"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                                            <input pInputText id="company" formControlName="company" class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="jobTitle"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+                                            <input pInputText id="jobTitle" formControlName="jobTitle" class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="website"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                                            <input pInputText id="website" formControlName="website" class="w-full" />
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="timezone"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Timezone</label>
+                                            <p-dropdown id="timezone" formControlName="timezone" [options]="timezones"
+                                                optionLabel="name" class="w-full"></p-dropdown>
+                                        </div>
+
+                                        <!-- Bio -->
+                                        <div class="p-field md:col-span-2">
+                                            <label for="bio"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                                            <textarea pInputTextarea id="bio" formControlName="bio" rows="4"
+                                                class="w-full"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-end mt-6">
+                                        <p-button type="submit" label="Update Profile" icon="pi pi-check"></p-button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </p-panel>
+
+                    <!-- Password & Security Section -->
+                    <p-panel header="Password & Security" [toggleable]="true" styleClass="mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Change Password -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">Change Password</h3>
+                                <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+                                    <div class="space-y-4">
+                                        <div class="p-field">
+                                            <label for="currentPassword"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Current
+                                                Password</label>
+                                            <p-password id="currentPassword" formControlName="currentPassword"
+                                                [toggleMask]="true" styleClass="w-full"></p-password>
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="newPassword"
+                                                class="block text-sm font-medium text-gray-700 mb-1">New
+                                                Password</label>
+                                            <p-password id="newPassword" formControlName="newPassword"
+                                                [toggleMask]="true" styleClass="w-full"></p-password>
+                                        </div>
+
+                                        <div class="p-field">
+                                            <label for="confirmPassword"
+                                                class="block text-sm font-medium text-gray-700 mb-1">Confirm New
+                                                Password</label>
+                                            <p-password id="confirmPassword" formControlName="confirmPassword"
+                                                [toggleMask]="true" styleClass="w-full"></p-password>
+                                        </div>
+
+                                        <div class="p-field">
+                                            <p-button type="submit" label="Update Password"
+                                                icon="pi pi-lock"></p-button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Security Settings -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 mb-4">Security Settings</h3>
+                                <form [formGroup]="securityForm" (ngSubmit)="onSecuritySubmit()">
+                                    <div class="space-y-4">
+                                        <div class="p-field flex items-center">
+                                            <p-toggleButton formControlName="twoFactorEnabled" onLabel="Enabled"
+                                                offLabel="Disabled" styleClass="mr-2"></p-toggleButton>
+                                            <label class="text-sm font-medium text-gray-700">Two-Factor
+                                                Authentication</label>
+                                        </div>
+
+                                        <div class="p-field flex items-center">
+                                            <p-toggleButton formControlName="emailNotifications" onLabel="Enabled"
+                                                offLabel="Disabled" styleClass="mr-2"></p-toggleButton>
+                                            <label class="text-sm font-medium text-gray-700">Email Notifications</label>
+                                        </div>
+
+                                        <div class="p-field flex items-center">
+                                            <p-toggleButton formControlName="loginAlerts" onLabel="Enabled"
+                                                offLabel="Disabled" styleClass="mr-2"></p-toggleButton>
+                                            <label class="text-sm font-medium text-gray-700">Login Alerts</label>
+                                        </div>
+
+                                        <div class="p-field flex items-center">
+                                            <p-toggleButton formControlName="dataSharing" onLabel="Enabled"
+                                                offLabel="Disabled" styleClass="mr-2"></p-toggleButton>
+                                            <label class="text-sm font-medium text-gray-700">Data Sharing</label>
+                                        </div>
+
+                                        <div class="p-field">
+                                            <p-button type="submit" label="Save Security Settings"
+                                                icon="pi pi-shield"></p-button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </p-panel>
+
+                    <!-- Notification Preferences -->
+                    <p-panel header="Notification Preferences" [toggleable]="true" styleClass="mb-6">
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Email Notifications</h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-field flex items-center">
+                                    <p-checkbox name="account" value="account" label="Account updates"
+                                        binary="true"></p-checkbox>
+                                </div>
+
+                                <div class="p-field flex items-center">
+                                    <p-checkbox name="security" value="security" label="Security alerts"
+                                        binary="true"></p-checkbox>
+                                </div>
+
+                                <div class="p-field flex items-center">
+                                    <p-checkbox name="news" value="news" label="Product news and updates"
+                                        binary="true"></p-checkbox>
+                                </div>
+
+                                <div class="p-field flex items-center">
+                                    <p-checkbox name="tips" value="tips" label="Tips and tutorials"
+                                        binary="true"></p-checkbox>
+                                </div>
+                            </div>
+
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Push Notifications</h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="p-field flex items-center">
+                                    <p-checkbox name="messages" value="messages" label="New messages"
+                                        binary="true"></p-checkbox>
+                                </div>
+
+                                <div class="p-field flex items-center">
+                                    <p-checkbox name="reminders" value="reminders" label="Reminders"
+                                        binary="true"></p-checkbox>
+                                </div>
+
+                                <div class="p-field flex items-center">
+                                    <p-checkbox name="updates" value="updates" label="App updates"
+                                        binary="true"></p-checkbox>
+                                </div>
+
+                                <div class="p-field flex items-center">
+                                    <p-checkbox name="promotions" value="promotions" label="Promotions"
+                                        binary="true"></p-checkbox>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end mt-6">
+                                <p-button label="Save Notification Settings" icon="pi pi-bell"></p-button>
+                            </div>
+                        </div>
+                    </p-panel>
+
+                    <!-- Account Management -->
+                    <p-panel header="Account Management" [toggleable]="true" styleClass="mb-6">
+                        <div class="space-y-8">
+                            <!-- Data Export -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">Data Export</h3>
+                                <p class="text-sm text-gray-600 mb-4">Download a copy of your personal data in a
+                                    machine-readable format.</p>
+                                <p-button label="Export Data" icon="pi pi-download"
+                                    styleClass="p-button-outlined"></p-button>
+                            </div>
+
+                            <!-- Account Deactivation -->
+                            <div>
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">Deactivate Account</h3>
+                                <p class="text-sm text-gray-600 mb-4">Temporarily disable your account. You can
+                                    reactivate it anytime.</p>
+                                <p-button label="Deactivate Account" icon="pi pi-power-off"
+                                    styleClass="p-button-warning p-button-outlined"></p-button>
+                            </div>
+
+                            <!-- Account Deletion -->
+                            <div>
+                                <h3 class="text-lg font-medium text-red-600 mb-2">Delete Account</h3>
+                                <p class="text-sm text-gray-600 mb-4">Permanently delete your account and all associated
+                                    data. This action cannot be undone.</p>
+                                <p-button label="Delete Account" icon="pi pi-trash" styleClass="p-button-danger"
+                                    (click)="confirmDeleteAccount()"></p-button>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -69,6 +69,10 @@ export class AuthService {
     return this.http.get<AuthResponse>(`${this.apiUrl}account/confirm-email`, { headers });
   }
 
+  verifyOtp() {
+
+  }
+
   logout(): void {
     localStorage.removeItem(this.tokenKey);
   }

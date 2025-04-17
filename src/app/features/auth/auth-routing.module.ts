@@ -6,18 +6,20 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { AuthComponent } from './auth.component';
 import { ConfirmEmailComponent } from './pages/confirm-email/confirm-email.component';
+import { TwoFactorComponent } from './pages/two-factor/two-factor.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
     children: [
-      {path: '', redirectTo: 'login', pathMatch: 'full'},
-      {path: 'login', component: LoginComponent},
-      {path: 'register', component:RegisterComponent},
-      {path: 'forgot-password', component: ForgotPasswordComponent},
-      {path: 'reset-password', component: ResetPasswordComponent},
-      {path: 'confirm-email', component: ConfirmEmailComponent}
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
+      { path: 'confirm-email', component: ConfirmEmailComponent },
+      { path: 'two-factor-auth', component: TwoFactorComponent }
     ],
   },
 ];

@@ -7,8 +7,9 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { AuthService } from '../../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Register } from '../../../../core/models/register';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-register',
@@ -17,16 +18,18 @@ import { Register } from '../../../../core/models/register';
     CardModule,
     InputTextModule,
     ButtonModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     InputGroupAddonModule,
     PasswordModule,
-    FloatLabelModule
+    FloatLabelModule,
+    DividerModule,
+    RouterModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  
+
   // Get the dependency injection
   fb: FormBuilder = inject(FormBuilder);
   authService: AuthService = inject(AuthService);
@@ -38,7 +41,7 @@ export class RegisterComponent {
     password: ['', [Validators.required, Validators.minLength(8)]]
   });
 
-  register(){
+  register() {
     const registerModel: Register = {
       email: this.registerForm.controls['email'].value,
       username: this.registerForm.controls['username'].value,
@@ -56,5 +59,5 @@ export class RegisterComponent {
       }
     });
   }
-  
+
 }

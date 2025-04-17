@@ -17,10 +17,10 @@ import { DividerModule } from 'primeng/divider';
   selector: 'app-login',
   standalone: true,
   imports: [
-    CardModule, 
-    InputTextModule, 
+    CardModule,
+    InputTextModule,
     ButtonModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     InputGroupAddonModule,
     PasswordModule,
     FloatLabelModule,
@@ -31,7 +31,7 @@ import { DividerModule } from 'primeng/divider';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  
+
   // loginForm: FormGroup = new FormGroup({
   //   username: new FormControl(''),
   //   password: new FormControl('')
@@ -55,7 +55,7 @@ export class LoginComponent {
       next: (response) => {
         if (response.result) {
           console.log('Login succesful');
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         }
       },
       error: (error) => {
@@ -64,6 +64,6 @@ export class LoginComponent {
       }
     });
   }
-  
+
 
 }

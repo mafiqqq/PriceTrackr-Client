@@ -12,19 +12,19 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(),
     provideAnimationsAsync(),
-    providePrimeNG({ 
-        theme: {
-            preset: Lara,
-            options: {
-              darkModeSelector: '.my-app-dark',
-              cssLayer: {
-                name: 'primeng',
-                order: 'tailwind-base, primeng, tailwind-utilities'
-            }
-            }
+    providePrimeNG({
+      theme: {
+        preset: Lara,
+        options: {
+          darkModeSelector: '.my-app-dark',
+          cssLayer: {
+            name: 'primeng',
+            order: 'tailwind-base, primeng, tailwind-utilities'
+          }
         }
+      }
     }),
     importProvidersFrom(AngularSvgIconModule.forRoot()),
-    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes)]
 };

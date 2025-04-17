@@ -1,49 +1,49 @@
 <div class="w-full max-w-2xl">
-    <!-- Login Form -->
-    <div class="space-y-6">
-      <div class="text-center space-y-2">
-        <h2 class="text-3xl font-bold text-gray-800">Welcome back</h2>
-        <p class="text-gray-500">Please enter your details to sign in</p>
+  <!-- Login Form -->
+  <div class="space-y-6">
+    <div class="text-center space-y-2">
+      <h2 class="text-3xl font-bold text-gray-800">Welcome back</h2>
+      <p class="text-gray-500">Please enter your details to sign in</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="space-y-4">
+      <div class="space-y-2">
+        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+        <input pInputText id="username" type="text" formControlName="username" class="w-full p-3"
+          placeholder="Enter your Username" />
       </div>
-      
-      <form [formGroup]="loginForm" class="space-y-4">
-        <div class="space-y-2">
-          <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-          <input pInputText id="username" type="text" formControlName="username" class="w-full p-3" 
-                 placeholder="Enter your Username" />
-        </div>
-        
-        <div class="space-y-2">
-          <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-          <p-password id="password" formControlName="password" [toggleMask]="true" styleClass="w-full" 
-                     inputStyleClass="w-full p-3" placeholder="Enter your password"></p-password>
-        </div>
-        
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <!-- <p-checkbox formControlName="rememberMe" [binary]="true" inputId="remember"></p-checkbox> -->
-            <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
-          </div>
-          <a routerLink="/auth/forgot-password" class="text-sm text-blue-600 hover:text-blue-800">Forgot password?</a>
-        </div>
-        
-        <button pButton type="submit" label="Sign in" class="w-full p-3 bg-blue-600 hover:bg-blue-700"></button>
-        
-        <p-divider align="center" type="solid">
-          <span class="text-xs text-gray-500 px-2">OR CONTINUE WITH</span>
-        </p-divider>
-        
-        <div class="grid grid-cols-2 gap-3">
-          <button pButton type="button" label="Google" icon="pi pi-google" class="p-button-outlined p-3"></button>
-          <button pButton type="button" label="GitHub" icon="pi pi-github" class="p-button-outlined p-3"></button>
-        </div>
-      </form>
-      
-      <div class="text-center">
-        <p class="text-sm text-gray-600">
-          Don't have an account? 
-          <a routerLink="/auth/register" class="text-blue-600 hover:text-blue-800 font-medium">Sign up</a>
-        </p>
+
+      <div class="space-y-2">
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <p-password id="password" formControlName="password" [toggleMask]="true" styleClass="w-full"
+          inputStyleClass="w-full p-3" placeholder="Enter your password"></p-password>
       </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <!-- <p-checkbox formControlName="rememberMe" [binary]="true" inputId="remember"></p-checkbox> -->
+          <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
+        </div>
+        <a routerLink="/auth/forgot-password" class="text-sm text-blue-600 hover:text-blue-800">Forgot password?</a>
+      </div>
+
+      <button pButton type="submit" label="Sign in" class="w-full p-3 bg-blue-600 hover:bg-blue-700"></button>
+
+      <p-divider align="center" type="solid">
+        <span class="text-xs text-gray-500 px-2">OR CONTINUE WITH</span>
+      </p-divider>
+
+      <div class="grid grid-cols-2 gap-3">
+        <button pButton type="button" label="Google" icon="pi pi-google" class="p-button-outlined p-3"></button>
+        <button pButton type="button" label="GitHub" icon="pi pi-github" class="p-button-outlined p-3"></button>
+      </div>
+    </form>
+
+    <div class="text-center">
+      <p class="text-sm text-gray-600">
+        Don't have an account?
+        <a routerLink="/auth/register" class="text-blue-600 hover:text-blue-800 font-medium">Sign up</a>
+      </p>
     </div>
   </div>
+</div>
