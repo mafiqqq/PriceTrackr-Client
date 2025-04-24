@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Development environment with hot reload
+  pricetrackr-client-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: pricetrackr-client-dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: ng serve --host 0.0.0.0 --poll 2000
+
+  # Production environment
+  pricetrackr-client-prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: pricetrackr-client-prod
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    # Uncomment below if you need to connect to your backend API
+    # depends_on:
+    #   - api-service
+
+  # Backend API service (reference to your existing .NET Core service)
+  # Uncomment and adjust as needed to connect with your backend
+  # api-service:
+  #   build:
+  #     context: ../backend-repo-path
+  #     dockerfile: Dockerfile
+  #   container_name: backend-api
+  #   ports:
+  #     - "5000:5000"
+  #     - "5001:5001"
+  #   volumes:
+  #     - ../backend-repo-path:/src
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
