@@ -1,6 +1,8 @@
-export interface AuthResponse {
-    result: boolean;
-    message: string;
+import { BaseResponse } from "./base-response";
+
+export interface AuthResponse extends BaseResponse{
     token: string;
+    requiresTwoFactor: boolean;
+    userId: string;
 }
 

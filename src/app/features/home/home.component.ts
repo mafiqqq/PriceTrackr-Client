@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
 import { RippleModule } from 'primeng/ripple';
 import { MenubarModule } from 'primeng/menubar';
 import { CardModule } from 'primeng/card';
+import { AuthService } from '../../core/services/auth.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { authInterceptor } from '../../core/services/auth.interceptor';
 
 @Component({
   selector: 'app-home',
@@ -19,12 +22,23 @@ import { CardModule } from 'primeng/card';
     MenubarModule,
     CardModule,
     DividerModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useFactory: (authService: AuthService) => authInterceptor,
+      multi: true,
+      deps: [AuthService]
+    }
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 
   mobileMenuOpen = false;
+  authService: AuthService = inject(AuthService);
+  router: Router = inject(Router);
+  isLoggedIn: boolean = false;
 
   navItems = [
     { label: 'Home', link: '/', active: true },
@@ -87,6 +101,20 @@ export class HomeComponent {
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: (response) => {
+        if (response.result) {
+          console.log('Logout successful');
+          this.router.navigate(['/auth/login']);
+        }
+      },
+      error: (error) => {
+        console.log('Logout failed');
+      }
+    });
   }
 
   // // Close mobile menu when clicking outside or resizing window

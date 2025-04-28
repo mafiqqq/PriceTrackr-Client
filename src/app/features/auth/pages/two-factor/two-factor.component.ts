@@ -20,7 +20,7 @@ export class TwoFactorComponent {
   }
 
   onSubmit() {
-
+    
   }
 
   onCancel() {

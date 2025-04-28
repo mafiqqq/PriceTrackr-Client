@@ -14,13 +14,13 @@
             </div>
 
             <div class="flex flex-col items-center space-y-4">
-                <div class="text-sm text-gray-600">
+                <!-- <div class="text-sm text-gray-600">
                     <span *ngIf="!canResend">Resend code in {{countdown}}s</span>
                     <button *ngIf="canResend" (click)="resendCode()"
                         class="text-blue-600 hover:text-blue-800 font-medium">
                         Resend code
                     </button>
-                </div>
+                </div> -->
                 <!-- [disabled]="otpValue.length !== 6"  -->
                 <div class="flex space-x-4 w-full max-w-xs">
                     <button pButton type="button" (click)="onSubmit()" label="Verify"

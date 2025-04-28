@@ -54,16 +54,22 @@ export class LoginComponent {
     this.authService.login(loginModel).subscribe({
       next: (response) => {
         if (response.result) {
-          console.log('Login succesful');
-          this.router.navigate(['/home']);
+          if (response.requiresTwoFactor) {
+            console.log('2FA required');
+            this.router.navigate(['/auth/two-factor-auth'])
+          } else {
+            console.log('Login succesful');
+            this.router.navigate(['/home']);
+          }
+        } else {
+          // Handle failed login
+          console.log('Login failed: ' + response.message);
         }
       },
       error: (error) => {
-        console.log('Login failed');
+        console.log('Login request failed');
         console.log(error);
       }
     });
   }
-
-
 }

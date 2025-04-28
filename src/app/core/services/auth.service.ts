@@ -7,26 +7,70 @@ import { AuthResponse } from '../models/auth-response';
 import { Register } from '../models/register';
 import { ForgotPassword } from '../models/forgot-password';
 import { ResetPassword } from '../models/reset-password';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  http: HttpClient = inject(HttpClient);
-  tokenKey: string = "PriceTrackr_Token";
-  apiUrl: string = environment.apiUrl;
+  private http: HttpClient = inject(HttpClient);
+  private router: Router = inject(Router);
+  private tokenKey: string = "PriceTrackr_Token";
+  private apiUrl: string = environment.apiUrl;
+  private userId: string | null = null;
 
   login(vm: Login): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}account/login`, vm)
+    return this.http.post<AuthResponse>(`${this.apiUrl}account/login`, vm, {
+      withCredentials: true // Important for preserving cookies across requests
+    })
       .pipe(
         map((res) => {
-          if (res.result) {
-            localStorage.setItem(this.tokenKey, res.token);
+          if (res.result && !res.requiresTwoFactor) {
+            this.setToken(res.token);
           }
           return res;
         })
       )
+  }
+
+  logout(): Observable<AuthResponse> {
+    // Get token before clearing
+    const token = this.getToken();
+
+    // Create headers with token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
+
+    return this.http.post<AuthResponse>(`${this.apiUrl}account/logout`, {}, {headers})
+    .pipe(
+      map((res) => {
+        if (res.result) {
+          localStorage.removeItem(this.tokenKey);
+        }
+        return res;
+      })
+    )
+  }
+
+  logoutLocally(): void{
+    localStorage.removeItem(this.tokenKey)
+  }
+
+  // Check if user is logged in
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  // Get token from storage
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  // Set token from storage
+  private setToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token)
   }
 
   register(vm: Register): Observable<AuthResponse> {
@@ -69,12 +113,8 @@ export class AuthService {
     return this.http.get<AuthResponse>(`${this.apiUrl}account/confirm-email`, { headers });
   }
 
-  verifyOtp() {
-
-  }
-
-  logout(): void {
-    localStorage.removeItem(this.tokenKey);
+  verifyOtp(code: String): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}account/verify-otp`, { code }, {withCredentials: true})
   }
 
   private retrieveToken(): string | null {
