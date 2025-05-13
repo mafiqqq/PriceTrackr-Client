@@ -6,31 +6,33 @@
         </div>
 
         <div class="space-y-6">
-            <div class="flex justify-center">
-                <p-inputotp formControlName="otpValue" [length]="6" [class]="{'width': '3rem', 'height': '3.5rem'}"
-                    styleClass="otp-input-container"
-                    inputStyleClass="text-2xl font-semibold text-center border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-                </p-inputotp>
-            </div>
-
-            <div class="flex flex-col items-center space-y-4">
-                <!-- <div class="text-sm text-gray-600">
-                    <span *ngIf="!canResend">Resend code in {{countdown}}s</span>
-                    <button *ngIf="canResend" (click)="resendCode()"
-                        class="text-blue-600 hover:text-blue-800 font-medium">
-                        Resend code
-                    </button>
-                </div> -->
-                <!-- [disabled]="otpValue.length !== 6"  -->
-                <div class="flex space-x-4 w-full max-w-xs">
-                    <button pButton type="button" (click)="onSubmit()" label="Verify"
-                        class="flex-1 p-3 bg-blue-600 hover:bg-blue-700">
-                    </button>
-                    <button pButton type="button" (click)="onCancel()" label="Cancel"
-                        class="flex-1 p-3 p-button-outlined">
-                    </button>
+            <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()" class="space-y-6" >
+                <div class="flex justify-center">
+                    <p-inputotp formControlName="otpValue" [length]="6" [class]="{'width': '3rem', 'height': '3.5rem'}"
+                        styleClass="otp-input-container"
+                        inputStyleClass="text-2xl font-semibold text-center border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                    </p-inputotp>
                 </div>
-            </div>
+    
+                <div class="flex flex-col items-center space-y-4">
+                    <!-- <div class="text-sm text-gray-600">
+                        <span *ngIf="!canResend">Resend code in {{countdown}}s</span>
+                        <button *ngIf="canResend" (click)="resendCode()"
+                            class="text-blue-600 hover:text-blue-800 font-medium">
+                            Resend code
+                        </button>
+                    </div> -->
+                    <!-- [disabled]="otpValue.length !== 6"  -->
+                    <div class="flex space-x-4 w-full max-w-xs">
+                        <button pButton type="submit" label="Verify"
+                            class="flex-1 p-3 bg-blue-600 hover:bg-blue-700">
+                        </button>
+                        <button pButton type="button" label="Cancel"
+                            class="flex-1 p-3 p-button-outlined">
+                        </button>
+                    </div>
+                </div>
+            </form>   
         </div>
 
         <div class="text-center text-sm text-gray-500">

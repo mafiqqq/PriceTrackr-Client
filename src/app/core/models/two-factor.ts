@@ -1,3 +1,3 @@
 export interface TwoFactor {
-    valueOtp: number;
+    otp: string;
 }

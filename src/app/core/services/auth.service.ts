@@ -8,6 +8,7 @@ import { Register } from '../models/register';
 import { ForgotPassword } from '../models/forgot-password';
 import { ResetPassword } from '../models/reset-password';
 import { Router } from '@angular/router';
+import { TwoFactor } from '../models/two-factor';
 
 @Injectable({
   providedIn: 'root'
@@ -113,8 +114,8 @@ export class AuthService {
     return this.http.get<AuthResponse>(`${this.apiUrl}account/confirm-email`, { headers });
   }
 
-  verifyOtp(code: String): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}account/verify-otp`, { code }, {withCredentials: true})
+  verifyOtp(vm: TwoFactor): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}account/verify-otp`, vm , {withCredentials: true})
   }
 
   private retrieveToken(): string | null {
