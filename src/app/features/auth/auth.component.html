@@ -1,3 +1,4 @@
+<!-- Fix for the main layout container -->
 <div class="flex h-screen w-screen bg-gray-50">
   <!-- Left Side - Fixed Design -->
   <div class="hidden md:flex md:w-1/2 bg-blue-600 flex-col justify-between p-12">
@@ -12,9 +13,10 @@
       © 2025 Brand Name. All rights reserved.
     </div>
   </div>
-  
-  <!-- Right Side - Authentication Forms - Router Outlet -->
-  <div class="flex items-center justify-center p-6">
-    <router-outlet></router-outlet>
+
+  <!-- Right Side - Authentication Forms - Fixed FULL WIDTH -->
+  <div class="w-full md:w-1/2 flex items-center justify-center w-1/2">
+    <div class="w-full max-w-md px-6 w-1/2">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-</div>

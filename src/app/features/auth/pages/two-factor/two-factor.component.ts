@@ -39,7 +39,7 @@ export class TwoFactorComponent implements OnInit {
     }
     this.authService.verifyOtp(twoFactor).subscribe({
       next: (response) => {
-        if (response.result && response.token) {
+        if (response.result) {
           this.router.navigate(['/home']);
         } else {
           console.log('Invalid OTP: ', response.message);
